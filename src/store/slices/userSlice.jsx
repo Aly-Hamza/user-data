@@ -3,12 +3,25 @@ const userSlice=createSlice({
 name: "users",
 initialState:[],
 reducers:{
-    addUser(state, action){},
-    removeUser(state, action){},
-    deleteUsers(state, action){},
+    addUser(state, action){
+        state.push(action.payload);
+        console.log(action.payload);
+    },
+    removeUser(state, action){
+state.splice(action.payload, 1)       
+    },
+    clearAllUsers(state, action){
+       return[];
+    },
 
 },
+extraReducers(builders){
+    builders.addCase(userSlice.actions.clearAllUsers, ()=>{
+        return  [];
+    })
+}
 
 });
-console.log(userSlice.actions)
+
 export default userSlice.reducer;
+export const{addUser,removeUser,   clearAllUsers }= userSlice.actions;
